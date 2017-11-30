@@ -9,5 +9,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return knex.raw('drop table champions cascade');
+  return knex.raw('drop table summoners cascade');
 };

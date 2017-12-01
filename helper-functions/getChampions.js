@@ -1,5 +1,6 @@
 // Get Champions
-async function getChampions (url) {
+const fetch = require('node-fetch');
+module.exports = async function getChampions (url) {
   const options = {
     headers: {
       "Retry-After": 10

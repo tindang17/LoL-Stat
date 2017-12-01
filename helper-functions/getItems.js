@@ -1,4 +1,5 @@
 // Get items
+const fetch = require('node-fetch');
 module.exports = async function getItems (url) {
   const options = {
     headers: {

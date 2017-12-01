@@ -1,4 +1,5 @@
 // Get Summoner info
+const fetch = require('node-fetch');
 module.exports = async function getSummonerInfo (url) {
   const options = {
     headers: {

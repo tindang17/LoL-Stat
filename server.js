@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const fetch = require('node-fetch');
+// const fetch = require('node-fetch');
 const request = require('request');
 const rp = require('request-promise');
 const ENV = process.env.ENV || "development";
@@ -28,9 +28,25 @@ class HttpError extends Error {
   }
 }
 
-app.post('/summoner', (req, res) => {
-  getItems();
-  const results = [];
+app.post('/summoner', async (req, res) => {
+  const summonerName = req.body.summoner;
+  const results = []
+  const items = await getItems(`https://na1.api.riotgames.com/lol/static-data/v3/items?locale=en_US&api_key=${process.env.API_KEY}`)
+  const { data:itemObj } = items;
+  results.push(itemObj);
+
+  const runes = await getRunes(`https://na1.api.riotgames.com/lol/static-data/v3/runes?locale=en_US&api_key=${process.env.API_KEY}`)
+  const { data: runeObj } = runes;
+  results.push(runeObj);
+
+  const champions = await getChampions(`https://na1.api.riotgames.com/lol/static-data/v3/champions?locale=en_US&dataById=false&api_key=${process.env.API_KEY}`)
+  const { data: championsObj } = champions;
+  results.push(championsObj);
+
+  const summoner = await getSummonerInfo(`https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/${summonerName}?api_key=${process.env.API_KEY}`)
+  results.push(summoner);
+
+  console.log(results);
 
 
 
@@ -55,10 +71,7 @@ app.post('/summoner', (req, res) => {
 
 
 
-
-
-
-// `https://na1.api.riotgames.com/lol/static-data/v3/items?locale=en_US&api_key=${process.env.API_KEY}`
+//
   // results.push(items);
   // rp(`https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/RiotSchmick?api_key=${process.env.API_KEY}`)
   // .then(firstRes => {

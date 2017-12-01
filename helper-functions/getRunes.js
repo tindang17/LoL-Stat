@@ -1,4 +1,5 @@
 // Get runes
+const fetch = require('node-fetch');
 module.exports = async function getRunes (url) {
   const options = {
     headers: {

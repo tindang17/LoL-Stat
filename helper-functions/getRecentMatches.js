@@ -1,4 +1,5 @@
 // Get Recent Macthes
+const fetch = require('node-fetch');
 module.exports = async function getRecentMatches (url) {
   const options = {
     headers: {

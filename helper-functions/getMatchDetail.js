@@ -1,4 +1,5 @@
 // Get Match Detail
+const fetch = require('node-fetch');
 module.exports = async function getMatchDetail (url) {
   const options = {
     headers: {

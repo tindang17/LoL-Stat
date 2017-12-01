@@ -5,25 +5,60 @@ const bodyParser = require('body-parser');
 const fetch = require('node-fetch');
 const request = require('request');
 const rp = require('request-promise');
-// const http2 = require('http2')
 const ENV = process.env.ENV || "development";
+
+//helper-functions
+const getItems = require('./helper-functions/getItems');
+const getRunes = require('./helper-functions/getRunes');
+const getChampions = require('./helper-functions/getChampions');
+const getSummonerInfo = require('./helper-functions/getSummonerInfo');
+const getRecentMatches = require('./helper-functions/getRecentMatches');
+const getMatchDetail = require('./helper-functions/getMatchDetail');
+
+// middleware
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-async function getItems () {
-  try {
-    let response = await fetch(`https://na1.api.riotgames.com/lol/static-data/v3/items?locale=en_US&api_key=${process.env.API_KEY}`)
-    let data = await response.json();
-    console.log(data);
-  } catch (err) {
-    throw err;
+class HttpError extends Error {
+  constructor(response) {
+    super(`${response.status} for ${response.url}`);
+    this.name = 'HttpError';
+    this.response = response;
   }
 }
 
 app.post('/summoner', (req, res) => {
   getItems();
   const results = [];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// `https://na1.api.riotgames.com/lol/static-data/v3/items?locale=en_US&api_key=${process.env.API_KEY}`
   // results.push(items);
   // rp(`https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/RiotSchmick?api_key=${process.env.API_KEY}`)
   // .then(firstRes => {

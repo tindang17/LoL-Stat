@@ -1,0 +1,1 @@
+export const GET_SUMMONER = 'GET_SUMMONER';

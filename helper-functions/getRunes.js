@@ -1,6 +1,6 @@
 // Get runes
 const fetch = require('node-fetch');
-module.exports = async function getRunes (url) {
+module.exports = async function getRunes (url, HttpError) {
   const options = {
     headers: {
       "Retry-After": 10

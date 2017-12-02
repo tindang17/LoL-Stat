@@ -28,42 +28,56 @@ class HttpError extends Error {
   }
 }
 
+async function getItemDetails (url, err) {
+  const data = await getItems(url, err);
+  const { data: items } = data;
+  return items;
+}
+async function getRunesDetails (url, err) {
+  const data = await getRunes(url, err);
+  const { data: runes } = data;
+  return runes
+}
+async function getChampionsDetails (url, err) {
+  const data = await getChampions(url, err);
+  const { data: champions } = data;
+  return champions
+}
+
+
+
+// function filteredItem (items, match, summoner) {
+//   const { participantIdentities } = match;
+//   // for (let key in items)
+// }
+
 app.post('/summoner', async (req, res) => {
   // get data from client
-  const summonerName = req.body.summoner;
-  const results = {};
+  let summonerName = req.body.summoner;
+  // const results = {};
 
-  // get item
-  const items = await getItems(`https://na1.api.riotgames.com/lol/static-data/v3/items?locale=en_US&api_key=${process.env.API_KEY}`);
-  const { data:itemObj } = items;
-  results.itemDetails = itemObj;
+  // const items = await getItemDetails(`https://na1.api.riotgames.com/lol/static-data/v3/items?locale=en_US&api_key=${process.env.API_KEY}`, HttpError)
 
-  // get runes
-  const runes = await getRunes(`https://na1.api.riotgames.com/lol/static-data/v3/runes?locale=en_US&api_key=${process.env.API_KEY}`);
-  const { data: runeObj } = runes;
-  results.runeDetails = runeObj;
+  // // get runes
+  // const runes = await getRunesDetails(`https://na1.api.riotgames.com/lol/static-data/v3/runes?locale=en_US&api_key=${process.env.API_KEY}`, HttpError);
 
-  // get champions
-  const champions = await getChampions(`https://na1.api.riotgames.com/lol/static-data/v3/champions?locale=en_US&dataById=false&api_key=${process.env.API_KEY}`);
-  const { data: championsObj } = champions;
-  results.championDetails = championsObj;
+  // // // get champions
+  // const champions = await getChampionsDetails(`https://na1.api.riotgames.com/lol/static-data/v3/champions?locale=en_US&dataById=false&api_key=${process.env.API_KEY}`, HttpError);
 
   //get summoner
-  const summoner = await getSummonerInfo(`https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/${summonerName}?api_key=${process.env.API_KEY}`);
-  results.summonerDetails = summoner;
+  const summoner = await getSummonerInfo(`https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/${summonerName}?api_key=${process.env.API_KEY}`, HttpError);
+  const { name, summonerLevel } = summoner;
   const { accountId } = summoner;
 
   //get match details
-  const latestMatches = await getRecentMatches(`https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/${accountId}/recent?api_key=${process.env.API_KEY}`);
+  const latestMatches = await getRecentMatches(`https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/${accountId}/recent?api_key=${process.env.API_KEY}`, HttpError);
   const { matches } = latestMatches;
-  results.matchDetails = [];
+  // results.matchDetails = [];
   let detail;
   for (let i = 0; i <= 2; i++) {
-    detail = await getMatchDetail(`https://na1.api.riotgames.com/lol/match/v3/matches/${matches[i].gameId}?api_key=${process.env.API_KEY}`);
-    results.matchDetails.push(detail);
+    detail = await getMatchDetail(`https://na1.api.riotgames.com/lol/match/v3/matches/${matches[i].gameId}?api_key=${process.env.API_KEY}`, HttpError);
   }
-
-  res.status(200).json(results);
+  // res.status(200).json(results);
 });
 
 app.listen(3001, () => {

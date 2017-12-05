@@ -7,6 +7,7 @@ const rp = require("request-promise");
 const ENV = process.env.ENV || "development";
 const PORT = process.env.PORT || 3001;
 const path = require('path');
+const API_KEY = process.env.API_KEY || 'RGAPI-99353b52-dacd-48e2-8d64-77f6e4f754ab'
 
 //helper-functions
 const getItems = require("./helper-functions/getItems");
@@ -85,7 +86,7 @@ app.get("/api/summoner", async (req, res) => {
   let results = [];
   let items = await getItemDetails(
     `https://na1.api.riotgames.com/lol/static-data/v3/items?locale=en_US&api_key=${
-      process.env.API_KEY
+      API_KEY
     }`,
     HttpError
   );
@@ -93,7 +94,7 @@ app.get("/api/summoner", async (req, res) => {
   // get runes
   let runes = await getRunesDetails(
     `https://na1.api.riotgames.com/lol/static-data/v3/summoner-spells?locale=en_US&dataById=false&api_key=${
-      process.env.API_KEY
+      API_KEY
     }`,
     HttpError
   );
@@ -102,7 +103,7 @@ app.get("/api/summoner", async (req, res) => {
 
   let champions = await getChampionsDetails(
     `https://na1.api.riotgames.com/lol/static-data/v3/champions?locale=en_US&dataById=false&api_key=${
-      process.env.API_KEY
+      API_KEY
     }`,
     HttpError
   );
@@ -111,7 +112,7 @@ app.get("/api/summoner", async (req, res) => {
   const summoner = await getSummonerInfo(
     `https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/${
       name
-    }?api_key=${process.env.API_KEY}`,
+    }?api_key=${API_KEY}`,
     HttpError
   );
   const { name: summonerName, summonerLevel } = summoner;
@@ -121,7 +122,7 @@ app.get("/api/summoner", async (req, res) => {
   const latestMatches = await getRecentMatches(
     `https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/${
       accountId
-    }/recent?api_key=${process.env.API_KEY}`,
+    }/recent?api_key=${API_KEY}`,
     HttpError
   );
   const { matches } = latestMatches;
@@ -132,7 +133,7 @@ app.get("/api/summoner", async (req, res) => {
     detail = await getMatchDetail(
       `https://na1.api.riotgames.com/lol/match/v3/matches/${
         gameId
-      }?api_key=${process.env.API_KEY}`,
+      }?api_key=${API_KEY}`,
       HttpError
     );
     results.push(

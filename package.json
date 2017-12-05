@@ -18,7 +18,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "local": "nodemon --expose-http2 server.js"
+    "local": "nodemon server.js"
   },
   "repository": {
     "type": "git",

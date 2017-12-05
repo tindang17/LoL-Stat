@@ -1,6 +1,6 @@
 // Get Match Detail
 const fetch = require('node-fetch');
-module.exports = async function getMatchDetail (url) {
+module.exports = async function getMatchDetail (url, HttpError) {
   const options = {
     headers: {
       "Retry-After": 10

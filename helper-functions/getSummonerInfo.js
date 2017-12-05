@@ -1,6 +1,6 @@
 // Get Summoner info
 const fetch = require('node-fetch');
-module.exports = async function getSummonerInfo (url) {
+module.exports = async function getSummonerInfo (url, HttpError) {
   const options = {
     headers: {
       "Retry-After": 10

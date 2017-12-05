@@ -1,6 +1,6 @@
 // Get items
 const fetch = require('node-fetch');
-module.exports = async function getItems (url) {
+module.exports = async function getItems (url, HttpError) {
   const options = {
     headers: {
       "Retry-After": 10

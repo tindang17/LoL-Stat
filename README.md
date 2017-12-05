@@ -6,3 +6,4 @@ Stacks:
 Node.js, Express.js, React.js and Redux.
 
 You can check out my app at lolstatsproject.herokuapp.com
+To try out the app. Type Riot Schmick or your LoL summoner name into the input field.

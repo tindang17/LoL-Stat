@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import './components/GetMatches';
+import GetSummonerMatches from './store/components/GetSummonerMatches';
+import MatchList from './store/components/MatchList';
 
 class App extends Component {
   render() {
@@ -11,7 +12,8 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome To LoL-Stat</h1>
         </header>
-        <GetMatches />
+        <GetSummonerMatches />
+        <MatchList />
       </div>
     );
   }

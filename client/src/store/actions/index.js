@@ -1,31 +1,23 @@
-export const GET_MATCHES = 'GET_MATCHES';
+export const SET_MATCHES = 'SET_MATCHES';
 
-export function getSummonerMatches(name) {
+export function getSummonerMatches(query) {
   return dispatch => {
-    const options = {
-      method: 'POST',
-      credential: 'omit',
-      body: JSON.stringify({
-        summoner: name
-      }),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    };
-
-    fetch(`http://localhost:3001/summoner`, options)
-    .then(res => res.json())
-    .then(res => res.results)
-    .then(matches =>
-      dispatch(getMatches(matches))
-    )
-    .catch(err => console.log(err)
-  };
+    fetch(`/api/summoner?name=${query}`, {
+      accept: "application/json"
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then(results => {
+      dispatch(setMatches(results))
+    })
+    .catch(err => console.log(err))
+  }
 }
 
-export function getMatches(matches) {
+export function setMatches(matches) {
   return {
-    type: GET_MATCHES,
+    type: SET_MATCHES,
     matches
   };
 }

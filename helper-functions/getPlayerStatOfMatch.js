@@ -7,10 +7,12 @@ function getPlayerStatOfMatch(
   runes,
   gameDuration,
   summonerLevel,
-  playerName
+  playerName,
+  gameId
 ) {
   let stats = {};
-  stats.gameLength = gameDuration / 60;
+  stats.gameId = gameId;
+  stats.gameLength = Math.floor(gameDuration / 60);
   stats.summonerName = playerName;
   stats.summonerLevel = summonerLevel;
   let playerStats;
@@ -79,7 +81,7 @@ function getPlayerStatOfMatch(
   getItemNames(stats, itemIds, items);
   getChampionNames(stats, champId, champions);
   getRuneNames(stats, runeIds, runes);
-  stats.creepScorePerMinutes = stats.creepsKilled / stats.gameLength;
+  stats.creepScorePerMinutes = Math.floor(stats.creepsKilled / stats.gameLength);
   return stats;
 }
 

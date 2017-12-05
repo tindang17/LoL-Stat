@@ -50,7 +50,8 @@ function filteredData(
   items,
   champions,
   runes,
-  summonerLevel
+  summonerLevel,
+  gameId
 ) {
   const { participantIdentities } = match;
   const { participants } = match;
@@ -70,14 +71,15 @@ function filteredData(
     runes,
     gameDuration,
     summonerLevel,
-    playerName
+    playerName,
+    gameId
   );
   return filteredData;
 }
 
-app.post("/summoner", async (req, res) => {
+app.get("/api/summoner", async (req, res) => {
   // get data from client
-  let name = req.body.summoner;
+  let { name } = req.query;
   let results = [];
   let items = await getItemDetails(
     `https://na1.api.riotgames.com/lol/static-data/v3/items?locale=en_US&api_key=${
@@ -122,10 +124,12 @@ app.post("/summoner", async (req, res) => {
   );
   const { matches } = latestMatches;
   let detail;
+  let gameId;
   for (let i = 0; i <= 3; i++) {
+    gameId = matches[i].gameId;
     detail = await getMatchDetail(
       `https://na1.api.riotgames.com/lol/match/v3/matches/${
-        matches[i].gameId
+        gameId
       }?api_key=${process.env.API_KEY}`,
       HttpError
     );
@@ -137,12 +141,13 @@ app.post("/summoner", async (req, res) => {
         items,
         champions,
         runes,
-        summonerLevel
+        summonerLevel,
+        gameId
       )
     );
   }
   console.log(results);
-  res.status(200).json(results);
+  res.json(results).status(200);
 });
 
 app.listen(3001, () => {

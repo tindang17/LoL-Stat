@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const request = require("request");
 const rp = require("request-promise");
 const ENV = process.env.ENV || "development";
+const PORT = process.env.PORT || 3001;
 
 //helper-functions
 const getItems = require("./helper-functions/getItems");
@@ -150,6 +151,6 @@ app.get("/api/summoner", async (req, res) => {
   res.json(results).status(200);
 });
 
-app.listen(3001, () => {
+app.listen(PORT, () => {
   console.log("server is running on port 3001");
 });

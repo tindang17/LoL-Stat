@@ -6,6 +6,7 @@ const request = require("request");
 const rp = require("request-promise");
 const ENV = process.env.ENV || "development";
 const PORT = process.env.PORT || 3001;
+const path = require('path');
 
 //helper-functions
 const getItems = require("./helper-functions/getItems");
@@ -18,7 +19,7 @@ const getPlayerStatOfMatch = require("./helper-functions/getPlayerStatOfMatch");
 // middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static("public"));
+app.use(express.static(path.resolve(__dirname, './client/build')));
 
 class HttpError extends Error {
   constructor(response) {
@@ -149,6 +150,10 @@ app.get("/api/summoner", async (req, res) => {
   }
   console.log(results);
   res.json(results).status(200);
+});
+
+app.get('*', function(request, response) {
+  response.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
 });
 
 app.listen(PORT, () => {

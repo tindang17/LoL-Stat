@@ -81,7 +81,6 @@ function getPlayerStatOfMatch(
   getRuneNames(stats, runeIds, runes);
   stats.creepScorePerMinutes = stats.creepsKilled / stats.gameLength;
   return stats;
-  // console.log(stats);
 }
 
 function getItemNames(stats, itemIds, items) {
@@ -107,8 +106,6 @@ function getChampionNames(stats, champId, champions) {
 
 function getRuneNames(stats, runeIds, runes) {
   stats.runesName = [];
-  // console.log('IDDDDDDDD', runeIds);
-  // console.log('RUNEEEEEEEE', runes);
   for (let runeId of runeIds) {
     for (let runesKey in runes) {
       if (runeId === runes[runesKey].id) {

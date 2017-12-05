@@ -6,7 +6,7 @@ const MatchList = ({ matches }) => {
   return (
   <div id='match-list' className='col-md-6'>
     {matches.map(match =>
-      <article style={{ 'display': 'inline-block' }}key={match.gameId}>{Match(match)}</article>
+      <section style={{ 'display': 'inline-block', 'verticalAlign': 'text-top'}}key={match.gameId}>{Match(match)}</section>
     )}
   </div>
   );

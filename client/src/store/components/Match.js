@@ -29,7 +29,7 @@ const Match = (match) => {
     marginTop: 20
   }
   return (
-    <section style={sectionStyle} className='match-stats'>
+    <article style={sectionStyle} className='match-stats'>
       <div>
         <span>Name: {summonerName}</span>
         <span style={spanStyle}>level: {summonerLevel}</span>
@@ -42,7 +42,7 @@ const Match = (match) => {
         <span style={spanStyle}>deaths: {deaths}</span>
         <span style={spanStyle}>assists: {assists}</span>
       </div>
-      <p>creepKilled: {creepsKilled}</p>
+      <p>Creeps Killed: {creepsKilled}</p>
       <p>Champion: {championName}</p>
       Item Bought:
       <ul style={textAlign}>
@@ -57,8 +57,8 @@ const Match = (match) => {
         )}
       </ul>
       <p>creepScorePerMinutes: {creepScorePerMinutes}</p>
-      <p>Game Length: {gameLength}</p>
-    </section>
+      <p>Game Length: {gameLength} minutes</p>
+    </article>
   )
 };
 

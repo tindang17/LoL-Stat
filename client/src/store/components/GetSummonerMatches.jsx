@@ -7,7 +7,7 @@ let GetSummonerMatches = ({ dispatch }) => {
 
   return (
     <section className='inputForm'>
-      <form onSubmit={e => {
+      <form style={{ 'marginTop': 15 }}onSubmit={e => {
         e.preventDefault()
         if (!input.value.trim()) {
           return;
@@ -18,7 +18,7 @@ let GetSummonerMatches = ({ dispatch }) => {
 
         }}
       >
-        <input
+        <input style={{ 'width':'30%', 'border': 'solid black' }}
           ref={node => {
             input = node
           }}

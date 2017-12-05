@@ -34,7 +34,7 @@ const Match = (match) => {
         <span>Name: {summonerName}</span>
         <span style={spanStyle}>level: {summonerLevel}</span>
       </div>
-      <p>win: {win === true ?
+      <p>Match result: {win === true ?
         win = 'win': 'lose'
       }</p>
       <div>

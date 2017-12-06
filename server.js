@@ -7,7 +7,7 @@ const rp = require("request-promise");
 const ENV = process.env.ENV || "development";
 const PORT = process.env.PORT || 3001;
 const path = require('path');
-const API_KEY = process.env.API_KEY || 'RGAPI-99353b52-dacd-48e2-8d64-77f6e4f754ab';
+const API_KEY = process.env.API_KEY || 'RGAPI-fc90786c-1a63-46e0-804a-e5ea852c251e';
 
 //helper-functions
 const getItems = require("./helper-functions/getItems");
@@ -30,6 +30,8 @@ class HttpError extends Error {
   }
 }
 
+// These are functions that will be used to get the data objects that contain the necessary data
+
 async function getItemDetails(url, err) {
   const data = await getItems(url, err);
   const { data: items } = data;
@@ -45,7 +47,13 @@ async function getChampionsDetails(url, err) {
   const { data: champions } = data;
   return champions;
 }
-// filtering data in match object
+/*
+  The function filteredData's job is the first step of extracting the nested data in the object.
+  First it will compare the summoner name in the participantsIdentities object with the playerName
+  that is provided to it. If the name match, the participant Id will be returned.
+  The participant Id will be used as the reference point to extract other info.
+  We then call the getPlayerStatOfMatch callback to get the player stat of the particular match.
+*/
 function filteredData(
   playerName,
   match,
@@ -128,6 +136,7 @@ app.get("/api/summoner", async (req, res) => {
   const { matches } = latestMatches;
   let detail;
   let gameId;
+   // The gameId is assigned value inside the loop so that we can get multiple game ids.
   for (let i = 0; i <= 3; i++) {
     gameId = matches[i].gameId;
     detail = await getMatchDetail(

@@ -7,7 +7,7 @@ const rp = require("request-promise");
 const ENV = process.env.ENV || "development";
 const PORT = process.env.PORT || 3001;
 const path = require('path');
-const API_KEY = process.env.API_KEY || 'RGAPI-369bca7a-756f-4ffa-96e4-3b1f94111514';
+const API_KEY = process.env.API_KEY || 'RGAPI-db0ad18d-1f0d-4305-abcd-87eac6d36abd';
 
 //helper-functions
 const getItems = require("./helper-functions/getItems");

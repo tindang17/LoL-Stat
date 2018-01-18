@@ -15,43 +15,30 @@ const Match = (match) => {
     runesName,
     creepScorePerMinutes } = match;
 
-  const spanStyle = {
-    marginLeft: 10
-  }
-
-  const textAlign = {
-    textAlign: 'left'
-  }
-
-  const sectionStyle = {
-    textAlign: 'left',
-    marginLeft: 20,
-    marginTop: 20
-  }
   return (
-    <article style={sectionStyle} className='match-stats'>
+    <article className='match-stats'>
       <div>
-        <span>Name: {summonerName}</span>
-        <span style={spanStyle}>level: {summonerLevel}</span>
+        <span className="spanStat">Name: {summonerName}</span>
+        <span className="spanStat">level: {summonerLevel}</span>
       </div>
       <p>Match result: {win === true ?
         win = 'win': 'lose'
       }</p>
       <div>
         <span>kills: {kills}</span>
-        <span style={spanStyle}>deaths: {deaths}</span>
-        <span style={spanStyle}>assists: {assists}</span>
+        <span className="spanStat">deaths: {deaths}</span>
+        <span className="spanStat">assists: {assists}</span>
       </div>
       <p>Creeps Killed: {creepsKilled}</p>
       <p>Champion: {championName}</p>
       Item Bought:
-      <ul style={textAlign}>
+      <ul className="list items">
         {itemNames.map(name =>
           <li>{name}</li>
         )}
       </ul>
       Runes used:
-      <ul style={textAlign}>
+      <ul className="list runes">
         {runesName.map(name =>
           <li>{name}</li>
         )}

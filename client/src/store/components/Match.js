@@ -43,7 +43,7 @@ const Match = (match) => {
           <li>{name}</li>
         )}
       </ul>
-      <p>creepScorePerMinutes: {creepScorePerMinutes}</p>
+      <p>Creep Score Per Minute: {creepScorePerMinutes}</p>
       <p>Game Length: {gameLength} minutes</p>
     </article>
   )

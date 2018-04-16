@@ -1,8 +1,16 @@
-import { SET_MATCHES } from '../actions/index'
-const matches = (state = [], action) => {
+import { SET_MATCHES } from '../actions/actions';
+import { REQUEST_MATCHES } from '../actions/actions';
+const matches = (state = {isFetching: false, items: []}, action) => {
   switch (action.type) {
     case SET_MATCHES:
-      return action.matches;
+      return Object.assign({}, state, {
+        isFetching: false,
+        items: action.matches
+      });
+    case REQUEST_MATCHES:
+      return Object.assign({}, state, {
+        isFetching: true
+      });
     default:
       return state;
   }

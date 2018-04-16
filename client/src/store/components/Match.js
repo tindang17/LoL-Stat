@@ -19,15 +19,15 @@ const Match = (match) => {
     <article className='match-stats'>
       <div>
         <span className="spanStat">Name: {summonerName}</span>
-        <span className="spanStat">level: {summonerLevel}</span>
+        <span className="spanStat">Level: {summonerLevel}</span>
       </div>
       <p>Match result: {win === true ?
         win = 'win': 'lose'
       }</p>
       <div>
-        <span>kills: {kills}</span>
-        <span className="spanStat">deaths: {deaths}</span>
-        <span className="spanStat">assists: {assists}</span>
+        <span>Kills: {kills}</span>
+        <span className="spanStat">Deaths: {deaths}</span>
+        <span className="spanStat">Assists: {assists}</span>
       </div>
       <p>Creeps Killed: {creepsKilled}</p>
       <p>Champion: {championName}</p>

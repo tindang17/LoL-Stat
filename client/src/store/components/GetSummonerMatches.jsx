@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getSummonerMatches } from '../actions/index';
+import { getSummonerMatches } from '../actions/actions';
 
 let GetSummonerMatches = ({ dispatch }) => {
   let input;
-
   return (
     <section className='inputForm'>
       <form style={{ 'marginTop': 15 }}onSubmit={e => {
@@ -12,13 +11,12 @@ let GetSummonerMatches = ({ dispatch }) => {
         if (!input.value.trim()) {
           return;
         }
-
         dispatch(getSummonerMatches(input.value));
-        input.value = ''
-
+        input.value = '';
         }}
       >
-        <input style={{ 'width':'30%', 'border': 'solid black' }}
+        <label>Enter the summoner's name</label>
+        <input
           ref={node => {
             input = node
           }}

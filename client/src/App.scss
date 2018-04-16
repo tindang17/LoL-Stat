@@ -1,3 +1,21 @@
+@import './styles/flexbox';
+$break-small: 768px;
+$break-large: 1024px;
+$mainColor: rgb(30, 35, 40);
+$formColor: rgb(1, 10, 19);
+$subColor: rgb(205, 190, 145);
+$borderColor: rgb(97, 74, 31);
+@mixin respond-to($media) {
+  @if $media == phones {
+    @media only screen and (max-width: $break-small) { @content; }
+  }
+  @else if $media == tablets {
+    @media only screen and (min-width: $break-small + 1) and (max-width: $break-large - 1) { @content; }
+  }
+  @else if $media == desktops {
+    @media only screen and (min-width: $break-large) { @content; }
+  }
+}
 .App {
   text-align: center;
 }
@@ -8,21 +26,104 @@
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+  padding: 10px;
+  color: $subColor;
+  text-transform: uppercase;
 }
 
 .App-title {
   font-size: 1.5em;
+  margin-bottom: 0;
 }
 
 .App-intro {
   font-size: large;
 }
-
-@keyframes App-logo-spin {
+.inputForm {
+  label {
+    color: rgb(205, 190, 145);
+    text-transform: uppercase;
+  }
+  form {
+    width: 21rem;
+    margin: 15px auto;
+    height: 9rem;  
+    padding: 5px;
+    background:$formColor;
+    box-shadow: 0px 0px 7px black;
+    border: solid $borderColor;
+    @include flexbox();
+    @include flex-direction(column);
+    @include justify-content(center);
+  }
+  input {
+    width: 15rem; 
+    display: block;
+    margin: 5px auto;
+    background-color: rgb(30, 35, 40);
+    color: $subColor;
+    border: 1px solid $borderColor;
+    height: 2rem;
+    &:focus {
+      outline: $borderColor;
+      background: linear-gradient(to bottom, #1e2328, #292d30);
+    }
+  }
+  button {
+    display: block;
+    margin: 0 auto;
+    width: 15rem;
+    margin-top: 3px;
+    border-radius: 5px;
+    background-color: rgb(30, 35, 40);
+    border: 1px solid $borderColor;
+    color: $subColor;
+    &:hover {
+      background: linear-gradient(to bottom, #1e2328, #292d30);
+      color: white;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+}
+.match-stats {
+  border: 1px solid black;
+  padding: 2rem 5px;
+  text-align: left;
+  margin: 5px 0;
+  width: 21rem;
+  height: 34rem;
+  @include respond-to(desktops) {
+    margin: 5px;
+  }
+  span {
+    margin-right: 5px;
+  }
+  background: $formColor;
+  color: rgb(205, 190, 145);
+  border: solid $borderColor;
+  font-size: 0.9rem;
+}
+#match-list {
+  @include flexbox();
+  @include flex-direction(column);
+  @include align-items(center);
+  @include respond-to(desktops) {
+    @include flex-flow(row wrap);
+    @include justify-content(center);
+  }
+}
+.loader {
+  border: 16px solid $borderColor; /* Light grey */
+  border-top: 16px solid $mainColor; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  margin: 10px auto;
+  animation: spin 2s linear infinite;
+}
+@keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }

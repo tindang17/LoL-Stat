@@ -1,8 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Match from './Match';
 
-const MatchList = ({ matches }) => {
+const MatchList = (props) => {
+  const {matches} = props;
   return (
     <div id='match-list' className='col-md-6'>
       {matches.map(match =>
@@ -12,8 +12,4 @@ const MatchList = ({ matches }) => {
   );
 }
 
-const mapStateToProps = ({ matches }) => ({
-  matches
-});
-
-export default connect(mapStateToProps)(MatchList);
+export default MatchList;

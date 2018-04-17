@@ -2,8 +2,6 @@ import React from 'react';
 
 const Match = (match) => {
   let {
-    summonerName,
-    summonerLevel,
     gameLength,
     win,
     kills,
@@ -17,10 +15,6 @@ const Match = (match) => {
 
   return (
     <article className='match-stats'>
-      <div>
-        <span className="spanStat">Name: {summonerName}</span>
-        <span className="spanStat">Level: {summonerLevel}</span>
-      </div>
       <p>Match result: {win === true ?
         win = 'win': 'lose'
       }</p>

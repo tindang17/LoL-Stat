@@ -73,11 +73,11 @@
 
 .match-stats {
   border: 1px solid black;
-  padding: 2rem 5px;
+  padding: 1rem 5px;
   text-align: left;
   margin: 5px 0;
   width: 21rem;
-  height: 34rem;
+  height: 30rem;
   background: #010a13;
   color: #cdbe91;
   border: solid #614a1f;
@@ -124,6 +124,11 @@
   height: 120px;
   margin: 10px auto;
   animation: spin 2s linear infinite; }
+
+.summoner span {
+  font-size: 2rem;
+  margin: 5px;
+  color: #cdbe91; }
 
 @keyframes spin {
   from {

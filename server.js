@@ -8,7 +8,7 @@ const ENV = process.env.ENV || "development";
 const PORT = process.env.PORT || 3001;
 const path = require('path');
 const API_KEY =
-  process.env.API_KEY || "RGAPI-19c50081-39e5-4be4-aaa9-8e968e3d5dc3";
+  process.env.API_KEY || "RGAPI-2518afa8-c9d0-4101-985c-dee90ff1ccc0";
 
 //helper-functions
 const getItems = require("./helper-functions/getItems");
@@ -124,9 +124,8 @@ app.get("/api/summoner", async (req, res) => {
     }?api_key=${API_KEY}`,
     HttpError
   );
-  const { name: summonerName, summonerLevel } = summoner;
+  let { name: summonerName, summonerLevel } = summoner;
   const { accountId } = summoner;
-
   //get match details
   const latestMatches = await getRecentMatches(
     `https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/${

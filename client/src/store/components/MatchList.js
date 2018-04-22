@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import SummonerInfo from './SummonerInfo';
 import Match from './Match';
 const MatchList = (props) => {
   const {matches} = props;
@@ -13,10 +14,7 @@ const MatchList = (props) => {
   }
   return (
     <Fragment>
-      <div class="summoner">
-        <span>{name}</span>
-        <span>{level}</span>
-      </div>
+      <SummonerInfo info={{name, level}} />
       <div id='match-list' className='col-md-6'>
         {matches.map(match => {
           return (

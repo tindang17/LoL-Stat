@@ -8,7 +8,7 @@ const ENV = process.env.ENV || "development";
 const PORT = process.env.PORT || 3001;
 const path = require('path');
 const API_KEY =
-  process.env.API_KEY || "RGAPI-2518afa8-c9d0-4101-985c-dee90ff1ccc0";
+  process.env.API_KEY || "RGAPI-ce665ee0-974b-487d-905a-c872160d97ae";
 
 //helper-functions
 const getItems = require("./helper-functions/getItems");
@@ -75,7 +75,7 @@ function filteredData(
       break;
     }
   }
-  let filteredData = cb(
+  let result = cb(
     id,
     participants,
     items,
@@ -86,7 +86,7 @@ function filteredData(
     playerName,
     gameId
   );
-  return filteredData;
+  return result;
 }
 
 app.get("/api/summoner", async (req, res) => {
@@ -158,7 +158,6 @@ app.get("/api/summoner", async (req, res) => {
       )
     );
   }
-  console.log(results);
   res.json(results).status(200);
 });
 

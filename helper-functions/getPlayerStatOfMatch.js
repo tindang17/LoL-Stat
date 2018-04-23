@@ -4,7 +4,7 @@ function getPlayerStatOfMatch(
   participants,
   items,
   champions,
-  runes,
+  spells,
   gameDuration,
   summonerLevel,
   playerName,
@@ -17,11 +17,11 @@ function getPlayerStatOfMatch(
   stats.summonerLevel = summonerLevel;
   let playerStats;
   let champId;
-  let runeIds = [];
+  let spellIds = [];
   for (let participant of participants) {
     if (id === participant.participantId) {
       playerStats = participant.stats;
-      runeIds.push(participant.spell1Id, participant.spell2Id);
+      spellIds.push(participant.spell1Id, participant.spell2Id);
     }
     champId = participant.championId;
   }
@@ -80,7 +80,7 @@ function getPlayerStatOfMatch(
 
   getItemNames(stats, itemIds, items);
   getChampionNames(stats, champId, champions);
-  getRuneNames(stats, runeIds, runes);
+  getSpellNames(stats, spellIds, spells);
   stats.creepScorePerMinutes = Math.floor(stats.creepsKilled / stats.gameLength);
   return stats;
 }
@@ -106,12 +106,12 @@ function getChampionNames(stats, champId, champions) {
   return stats;
 }
 
-function getRuneNames(stats, runeIds, runes) {
-  stats.runesName = [];
-  for (let runeId of runeIds) {
-    for (let runesKey in runes) {
-      if (runeId === runes[runesKey].id) {
-        stats.runesName.push(runes[runesKey].name);
+function getSpellNames(stats, spellIds, spells) {
+  stats.spellsName = [];
+  for (let spellId of spellIds) {
+    for (let spellsKey in spells) {
+      if (spellId === spells[spellsKey].id) {
+        stats.spellsName.push(spells[spellsKey].name);
       }
     }
   }

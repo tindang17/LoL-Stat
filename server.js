@@ -11,12 +11,8 @@ const API_KEY =
   process.env.API_KEY;
 
 //helper-functions
-const getItems = require("./helper-functions/getItems");
-const getRunes = require("./helper-functions/getRunes");
-const getChampions = require("./helper-functions/getChampions");
-const getSummonerInfo = require("./helper-functions/getSummonerInfo");
-const getRecentMatches = require("./helper-functions/getRecentMatches");
-const getMatchDetail = require("./helper-functions/getMatchDetail");
+const getData = require("./helper-functions/getData");
+const getStaticData = require("./helper-functions/getStaticData");
 const getPlayerStatOfMatch = require("./helper-functions/getPlayerStatOfMatch");
 // middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -31,23 +27,7 @@ class HttpError extends Error {
   }
 }
 
-// These are functions that will be used to get the data objects that contain the necessary data
 
-async function getItemDetails(url, err) {
-  const data = await getItems(url, err);
-  const { data: items } = data;
-  return items;
-}
-async function getRunesDetails(url, err) {
-  const data = await getRunes(url, err);
-  const { data: runes } = data;
-  return runes;
-}
-async function getChampionsDetails(url, err) {
-  const data = await getChampions(url, err);
-  const { data: champions } = data;
-  return champions;
-}
 /*
   The function filteredData's job is the first step of extracting the nested data in the object.
   First it will compare the summoner name in the participantsIdentities object with the playerName
@@ -61,7 +41,7 @@ function filteredData(
   cb,
   items,
   champions,
-  runes,
+  spells,
   summonerLevel,
   gameId
 ) {
@@ -80,7 +60,7 @@ function filteredData(
     participants,
     items,
     champions,
-    runes,
+    spells,
     gameDuration,
     summonerLevel,
     playerName,
@@ -93,16 +73,16 @@ app.get("/api/summoner", async (req, res) => {
   // get data from client
   let { name } = req.query;
   let results = [];
-  let items = await getItemDetails(
-    `https://na1.api.riotgames.com/lol/static-data/v3/items?locale=en_US&api_key=${
+  let items = await getStaticData(
+    `https://na1.api.riotgames.com/lol/static-data/v3/items?locale=en_US&itemListData=image&api_key=${
       API_KEY
     }`,
     HttpError
   );
 
-  // get runes
-  let runes = await getRunesDetails(
-    `https://na1.api.riotgames.com/lol/static-data/v3/summoner-spells?locale=en_US&dataById=false&api_key=${
+  // get spells
+  let spells = await getStaticData(
+    `https://na1.api.riotgames.com/lol/static-data/v3/summoner-spells?locale=en_US&spellListData=image&dataById=false&api_key=${
       API_KEY
     }`,
     HttpError
@@ -110,15 +90,15 @@ app.get("/api/summoner", async (req, res) => {
 
   // get champions
 
-  let champions = await getChampionsDetails(
-    `https://na1.api.riotgames.com/lol/static-data/v3/champions?locale=en_US&dataById=false&api_key=${
+  let champions = await getStaticData(
+    `https://na1.api.riotgames.com/lol/static-data/v3/champions?locale=en_US&championListData=image&dataById=false&api_key=${
       API_KEY
     }`,
     HttpError
   );
 
   //get summoner
-  const summoner = await getSummonerInfo(
+  const summoner = await getData(
     `https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/${
       name
     }?api_key=${API_KEY}`,
@@ -127,7 +107,7 @@ app.get("/api/summoner", async (req, res) => {
   let { name: summonerName, summonerLevel } = summoner;
   const { accountId } = summoner;
   //get match details
-  const latestMatches = await getRecentMatches(
+  const latestMatches = await getData(
     `https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/${
       accountId
     }/recent?api_key=${API_KEY}`,
@@ -139,7 +119,7 @@ app.get("/api/summoner", async (req, res) => {
    // The gameId is assigned value inside the loop so that we can get multiple game ids.
   for (let i = 0; i <= 3; i++) {
     gameId = matches[i].gameId;
-    detail = await getMatchDetail(
+    detail = await getData(
       `https://na1.api.riotgames.com/lol/match/v3/matches/${
         gameId
       }?api_key=${API_KEY}`,
@@ -152,7 +132,7 @@ app.get("/api/summoner", async (req, res) => {
         getPlayerStatOfMatch,
         items,
         champions,
-        runes,
+        spells,
         summonerLevel,
         gameId
       )

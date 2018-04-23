@@ -10,7 +10,7 @@ const Match = (match) => {
     creepsKilled,
     itemNames,
     championName,
-    runesName,
+    spellsName,
     creepScorePerMinutes } = match;
 
   return (
@@ -31,9 +31,9 @@ const Match = (match) => {
           <li>{name}</li>
         )}
       </ul>
-      Runes used:
-      <ul className="list runes">
-        {runesName.map(name =>
+      Spells used:
+      <ul className="list spells">
+        {spellsName.map(name =>
           <li>{name}</li>
         )}
       </ul>
